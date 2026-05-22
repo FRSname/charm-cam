@@ -306,42 +306,34 @@ header{display:flex;align-items:center;justify-content:space-between;padding:16p
 <script>
 // ============================================================
 // FILM DEFINITIONS
-// css = applied to gallery images after developing
-// sensor = OV2640 register values sent on load
+// Look is fully baked by the OV2640 sensor via special_effect.
+// effect: 0=none 1=negative 2=grayscale 3=red 4=green 5=blue 6=sepia
 // ============================================================
 const FILMS = [
   { id:'natural',  name:'Natural',   desc:'True to life, no processing',
     swatch:'linear-gradient(135deg,#8a7060,#c4a880 40%,#e8c898 70%,#a08060)',
-    css:'none',
     sensor:{brightness:1,saturation:0,contrast:0,effect:0} },
-  { id:'kodak',    name:'Kodak',     desc:'Warm tones, boosted saturation',
+  { id:'kodak',    name:'Kodak',     desc:'Warm sepia tones',
     swatch:'linear-gradient(135deg,#9a7050,#d4a870 40%,#f0d090 70%,#b08050)',
-    css:'sepia(0.25) saturate(1.4) contrast(1.08) brightness(1.05)',
-    sensor:{brightness:1,saturation:2,contrast:1,effect:0} },
+    sensor:{brightness:1,saturation:2,contrast:1,effect:6} },
   { id:'ilford',   name:'Ilford',    desc:'True grayscale, high contrast',
     swatch:'linear-gradient(135deg,#2a2a2a,#888 40%,#ccc 70%,#555)',
-    css:'grayscale(1) contrast(1.15) brightness(1.05)',
     sensor:{brightness:0,saturation:-2,contrast:2,effect:2} },
   { id:'velvia',   name:'Velvia',    desc:'Vivid, punchy, saturated',
     swatch:'linear-gradient(135deg,#6a3020,#d06030 40%,#e8b040 70%,#205050)',
-    css:'saturate(1.9) contrast(1.12) brightness(0.97)',
     sensor:{brightness:0,saturation:2,contrast:2,effect:0} },
-  { id:'faded',    name:'Faded',     desc:'High key, desaturated look',
+  { id:'faded',    name:'Faded',     desc:'Light, washed sepia look',
     swatch:'linear-gradient(135deg,#b09880,#d8c4a8 40%,#ede0c8 70%,#c0a888)',
-    css:'sepia(0.4) saturate(0.7) contrast(0.85) brightness(1.15)',
-    sensor:{brightness:2,saturation:-1,contrast:-1,effect:0} },
+    sensor:{brightness:2,saturation:-1,contrast:-1,effect:6} },
   { id:'cyano',    name:'Cyanotype', desc:'Blueprint blue toning',
     swatch:'linear-gradient(135deg,#102040,#204880 40%,#4080c0 70%,#183060)',
-    css:'sepia(0.5) hue-rotate(180deg) saturate(1.3) contrast(1.1)',
-    sensor:{brightness:0,saturation:1,contrast:1,effect:0} },
+    sensor:{brightness:0,saturation:1,contrast:1,effect:5} },
   { id:'redscale', name:'Redscale',  desc:'Hot reds, expired film look',
     swatch:'linear-gradient(135deg,#6a1008,#c82010 40%,#e86020 70%,#902008)',
-    css:'sepia(1) hue-rotate(-20deg) saturate(2.5) contrast(1.1) brightness(0.95)',
-    sensor:{brightness:0,saturation:2,contrast:1,effect:0} },
-  { id:'xpro',     name:'X-Pro',    desc:'High contrast cross-process',
+    sensor:{brightness:0,saturation:2,contrast:1,effect:3} },
+  { id:'xpro',     name:'X-Pro',    desc:'Cross-process green cast',
     swatch:'linear-gradient(135deg,#203828,#408050 40%,#80c878 70%,#305840)',
-    css:'saturate(1.6) contrast(1.2) brightness(0.9) hue-rotate(8deg)',
-    sensor:{brightness:-1,saturation:2,contrast:2,effect:0} },
+    sensor:{brightness:-1,saturation:2,contrast:2,effect:4} },
 ];
 
 // ============================================================
@@ -611,7 +603,7 @@ function showPreview(src) {
 }
 
 function handleVfClick() {
-  if (lastFilename) openLightbox(lastFilename, activeFilm ? activeFilm.css : 'none', true);
+  if (lastFilename) openLightbox(lastFilename, true);
 }
 
 // ============================================================
@@ -657,7 +649,6 @@ async function goToDevelop() {
 // ============================================================
 function renderGallery(photos, dir) {
   currentGalleryDir = dir || null;
-  const filmCss = activeFilm ? activeFilm.css : 'none';
   const filmName = appMode === 'digital' ? 'DIGITAL' : (activeFilm ? activeFilm.name.toUpperCase() : '');
   document.getElementById('gallery-film-label').textContent = filmName + ' \u2014 ' + photos.length + ' ' + (appMode === 'digital' ? 'PHOTOS' : 'FRAMES');
   const showRollBtns = currentGalleryDir ? 'inline-block' : 'none';
@@ -669,8 +660,8 @@ function renderGallery(photos, dir) {
   if (!photos.length) { g.innerHTML = '<div style="color:var(--muted);font-family:var(--ff-mono);font-size:11px;padding:30px 0">NO PHOTOS</div>'; return; }
   g.innerHTML = photos.map((p, i) => {
     const name = p.name || p;
-    return `<div class="thumb-card" style="animation-delay:${i*0.06}s" onclick="openLightbox('${name}','${filmCss}',false)">
-      <img src="/photo?name=${encodeURIComponent(name)}${dirParam}&_=${Date.now()}" alt="${name}" loading="lazy" style="filter:${filmCss}">
+    return `<div class="thumb-card" style="animation-delay:${i*0.06}s" onclick="openLightbox('${name}',false)">
+      <img src="/photo?name=${encodeURIComponent(name)}${dirParam}&_=${Date.now()}" alt="${name}" loading="lazy">
       <div class="dl-overlay">&#8595; SAVE</div>
     </div>`;
   }).join('');
@@ -679,61 +670,27 @@ function renderGallery(photos, dir) {
 // ============================================================
 // LIGHTBOX
 // ============================================================
-let lbBlobUrl = null;
-let lbBakeToken = 0;
-
-function openLightbox(filename, css, isPreview) {
-  const applyCss = (css && css !== 'none') ? css : '';
+function openLightbox(filename, isPreview) {
   const lb  = document.getElementById('lightbox');
   const img = document.getElementById('lb-img');
   const dl  = document.getElementById('lb-dl');
   const del = document.getElementById('lb-delete');
   const dirParam = (!isPreview && currentGalleryDir) ? '&dir=' + encodeURIComponent(currentGalleryDir) : '';
   const srcUrl  = '/photo?name=' + encodeURIComponent(filename) + dirParam + (isPreview ? '&_=' + Date.now() : '');
-  const rawDl   = '/photo?name=' + encodeURIComponent(filename) + dirParam + '&dl=1';
+  const dlUrl   = '/photo?name=' + encodeURIComponent(filename) + dirParam + '&dl=1';
   currentLightboxFile = filename;
   currentLightboxIsPreview = !!isPreview;
   document.getElementById('lb-name').textContent = filename;
+  img.style.filter = '';
+  img.src  = srcUrl;
+  dl.href  = dlUrl;
+  dl.download = filename;
   del.style.display = isPreview ? 'none' : 'inline-block';
   lb.classList.add('open');
-
-  if (lbBlobUrl) { URL.revokeObjectURL(lbBlobUrl); lbBlobUrl = null; }
-  const myToken = ++lbBakeToken;
-
-  img.style.filter = applyCss;
-  img.src  = srcUrl;
-  dl.href  = rawDl;
-  dl.download = filename;
-  dl.onclick = null;
-
-  if (!applyCss) return;
-
-  (async () => {
-    try {
-      const bake = new Image();
-      await new Promise((res, rej) => { bake.onload = res; bake.onerror = rej; bake.src = srcUrl; });
-      if (myToken !== lbBakeToken) return;
-      const c = document.createElement('canvas');
-      c.width = bake.naturalWidth;
-      c.height = bake.naturalHeight;
-      const ctx = c.getContext('2d');
-      ctx.filter = applyCss;
-      ctx.drawImage(bake, 0, 0);
-      const blob = await new Promise(res => c.toBlob(res, 'image/jpeg', 0.92));
-      if (myToken !== lbBakeToken || !blob) return;
-      const url = URL.createObjectURL(blob);
-      lbBlobUrl = url;
-      img.style.filter = '';
-      img.src = url;
-      dl.href = url;
-    } catch (err) {}
-  })();
 }
 function closeLightbox() {
   currentLightboxFile = null;
   currentLightboxIsPreview = false;
-  lbBakeToken++;
-  if (lbBlobUrl) { URL.revokeObjectURL(lbBlobUrl); lbBlobUrl = null; }
   document.getElementById('lightbox').classList.remove('open');
 }
 document.getElementById('lightbox').addEventListener('click', e => {
