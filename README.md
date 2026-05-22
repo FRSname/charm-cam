@@ -50,6 +50,48 @@ Frames captured with Charm-Cam, straight from the SD card with no post-processin
   </tr>
 </table>
 
+## App
+
+The whole interface runs on the ESP32-CAM itself — no cloud, no companion app, no internet required. Connect to the camera's Wi-Fi hotspot, open `http://192.168.4.1` in any browser (phone, tablet, laptop), and you get a self-contained film-camera UI styled in amber-on-black.
+
+<table>
+  <tr>
+    <td width="280" valign="top"><img src="Gallery/screenshots/cam.PNG" alt="Capture screen" width="260" /></td>
+    <td valign="top">
+      <h3>Capture</h3>
+      <p>The main shooting screen. Shows the live viewfinder, the loaded film stock (here: <em>Ilford</em>), the frame counter, frames remaining, and the big amber shutter button. The <strong>Develop Roll</strong> action below moves all exposures into the archive and resets the roll. Top bar carries the <em>Charm-Cam / OV2640</em> wordmark, a <em>READY</em> status pill, and quick access to gallery and settings.</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="280" valign="top"><img src="Gallery/screenshots/rolls.PNG" alt="Load Film screen" width="260" /></td>
+    <td valign="top">
+      <h3>Load Film</h3>
+      <p>Pick the film stock for the next roll. Eight presets are included — <em>Natural, Kodak, Ilford, Velvia, Faded, Cyanotype, Redscale, X-Pro</em> — each shown as a film canister with a short personality description. Picking one starts a fresh 36-exposure roll.</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="280" valign="top"><img src="Gallery/screenshots/gallery.PNG" alt="Roll Archive screen" width="260" /></td>
+    <td valign="top">
+      <h3>Roll Archive</h3>
+      <p>Every developed roll, with its frame count and folder name (<code>rNN_filmname</code>). Each row has <strong>Rename</strong> and <strong>Delete</strong> actions so you can curate the archive without touching the SD card. The top buttons jump back to the camera or load a new roll.</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="280" valign="top"><img src="Gallery/screenshots/images.PNG" alt="Developed Roll view" width="260" /></td>
+    <td valign="top">
+      <h3>Developed Roll</h3>
+      <p>The contact-sheet view for a single developed roll. Browse all frames, tap any thumbnail to view full size, or remove the whole roll with <strong>Delete Roll</strong>. <strong>Rename</strong> lets you replace the auto-generated <code>rNN_filmname</code> name with something meaningful (e.g. <em>"Prague Saturday"</em>).</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="280" valign="top"><img src="Gallery/screenshots/settings.PNG" alt="Settings screen" width="260" /></td>
+    <td valign="top">
+      <h3>Settings</h3>
+      <p>Switch between <strong>Analog</strong> (36-shot rolls + developing) and <strong>Digital</strong> (direct-to-gallery) modes, toggle the flash LED, and change the AP name and password. Settings persist across reboots in NVS. <strong>Firmware Update</strong> opens the OTA upload page.</p>
+    </td>
+  </tr>
+</table>
+
 ## Hardware
 
 Designed for:

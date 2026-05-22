@@ -679,6 +679,9 @@ function renderGallery(photos, dir) {
 // ============================================================
 // LIGHTBOX
 // ============================================================
+let lbBlobUrl = null;
+let lbBakeToken = 0;
+
 function openLightbox(filename, css, isPreview) {
   const applyCss = (css && css !== 'none') ? css : '';
   const lb  = document.getElementById('lightbox');
@@ -686,19 +689,51 @@ function openLightbox(filename, css, isPreview) {
   const dl  = document.getElementById('lb-dl');
   const del = document.getElementById('lb-delete');
   const dirParam = (!isPreview && currentGalleryDir) ? '&dir=' + encodeURIComponent(currentGalleryDir) : '';
+  const srcUrl  = '/photo?name=' + encodeURIComponent(filename) + dirParam + (isPreview ? '&_=' + Date.now() : '');
+  const rawDl   = '/photo?name=' + encodeURIComponent(filename) + dirParam + '&dl=1';
   currentLightboxFile = filename;
   currentLightboxIsPreview = !!isPreview;
   document.getElementById('lb-name').textContent = filename;
-  img.style.filter = applyCss;
-  img.src  = '/photo?name=' + encodeURIComponent(filename) + dirParam + (isPreview ? '&_=' + Date.now() : '');
-  dl.href  = '/photo?name=' + encodeURIComponent(filename) + dirParam + '&dl=1';
-  dl.download = filename;
   del.style.display = isPreview ? 'none' : 'inline-block';
   lb.classList.add('open');
+
+  if (lbBlobUrl) { URL.revokeObjectURL(lbBlobUrl); lbBlobUrl = null; }
+  const myToken = ++lbBakeToken;
+
+  img.style.filter = applyCss;
+  img.src  = srcUrl;
+  dl.href  = rawDl;
+  dl.download = filename;
+  dl.onclick = null;
+
+  if (!applyCss) return;
+
+  (async () => {
+    try {
+      const bake = new Image();
+      await new Promise((res, rej) => { bake.onload = res; bake.onerror = rej; bake.src = srcUrl; });
+      if (myToken !== lbBakeToken) return;
+      const c = document.createElement('canvas');
+      c.width = bake.naturalWidth;
+      c.height = bake.naturalHeight;
+      const ctx = c.getContext('2d');
+      ctx.filter = applyCss;
+      ctx.drawImage(bake, 0, 0);
+      const blob = await new Promise(res => c.toBlob(res, 'image/jpeg', 0.92));
+      if (myToken !== lbBakeToken || !blob) return;
+      const url = URL.createObjectURL(blob);
+      lbBlobUrl = url;
+      img.style.filter = '';
+      img.src = url;
+      dl.href = url;
+    } catch (err) {}
+  })();
 }
 function closeLightbox() {
   currentLightboxFile = null;
   currentLightboxIsPreview = false;
+  lbBakeToken++;
+  if (lbBlobUrl) { URL.revokeObjectURL(lbBlobUrl); lbBlobUrl = null; }
   document.getElementById('lightbox').classList.remove('open');
 }
 document.getElementById('lightbox').addEventListener('click', e => {
