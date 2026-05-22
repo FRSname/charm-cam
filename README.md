@@ -1,5 +1,9 @@
 # Charm-Cam
 
+<p align="center">
+  <img src="micro2.gif" alt="Charm-Cam in action" width="600" />
+</p>
+
 [![Built with Claude](https://img.shields.io/badge/Built_with-Claude-D97757?logo=anthropic&logoColor=white)](https://claude.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
