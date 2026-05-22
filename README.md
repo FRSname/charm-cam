@@ -92,6 +92,10 @@ The whole interface runs on the ESP32-CAM itself — no cloud, no companion app,
   </tr>
 </table>
 
+<p align="center">
+  <img src="Gallery/printed.jpg" alt="Charm-Cam printed and assembled" width="600" />
+</p>
+
 ## Hardware
 
 Designed for:
@@ -118,6 +122,13 @@ STL/3MF files for the Charm-Cam case are in [3D Files/](3D%20Files/):
 - `Charm-Cam-Lens-v1.stl` — lens bezel
 - `Charm-Cam-Parts-Holder-v1.stl` — print-bed jig for small parts
 - `Charm-Cam-v1-PrintFILE.3mf` — pre-arranged print plate (PrusaSlicer / Bambu Studio)
+
+<table>
+  <tr>
+    <td><img src="Gallery/Body.png"     alt="Charm-Cam assembled body"      width="360" /></td>
+    <td><img src="Gallery/exploded.png" alt="Charm-Cam exploded parts view" width="360" /></td>
+  </tr>
+</table>
 
 ### Pin usage
 
