@@ -1,0 +1,32 @@
+# Arduino build artifacts
+build/
+*.elf
+*.bin
+*.map
+*.hex
+*.eep
+*.lst
+
+# Arduino IDE 2 (Theia-based) workspace files
+.theia/
+
+# Other common editor/IDE folders
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS noise
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+$RECYCLE.BIN/
+
+# Local development notes / scratch
+MEMORY.md
+Filmrolls/_*.txt
+
+# Licensed / non-redistributable assets
+istockphoto-*.jpg
