@@ -55,15 +55,15 @@ Frames captured with Charm-Cam, straight from the SD card with no post-processin
 Designed for:
 
 - AI-Thinker ESP32-CAM with OV2640 camera module — [buy on AliExpress](https://www.aliexpress.com/item/1005006299363624.html)  
-  <a href="https://www.aliexpress.com/item/1005006299363624.html"><img src="ESP.png" alt="AI-Thinker ESP32-CAM with OV2640" width="250" /></a>
+  <a href="https://www.aliexpress.com/item/1005006299363624.html"><img src="Gallery/ESP.png" alt="AI-Thinker ESP32-CAM with OV2640" width="250" /></a>
 - Battery — 3.7 V Li-Po cell, optimal dimensions **39 × 26 × 4.5 mm** to fit the enclosure. The prototype uses a **502040 350 mAh** cell (40 × 20 × 5 mm) — [buy on AliExpress](https://www.aliexpress.com/item/1005011928866829.html)  
-  <a href="https://www.aliexpress.com/item/1005011928866829.html"><img src="Battery.png" alt="502040 3.7V 350mAh Li-Po battery" width="250" /></a>
+  <a href="https://www.aliexpress.com/item/1005011928866829.html"><img src="Gallery/Battery.png" alt="502040 3.7V 350mAh Li-Po battery" width="250" /></a>
 - USB C Charging board — [buy on AliExpress](https://www.aliexpress.com/item/1005009974716402.html)  
-  <a href="https://www.aliexpress.com/item/1005009974716402.html"><img src="Batteryboard.png" alt="USB-C lithium battery charging module" width="250" /></a>
+  <a href="https://www.aliexpress.com/item/1005009974716402.html"><img src="Gallery/Batteryboard.png" alt="USB-C lithium battery charging module" width="250" /></a>
 - Flat on/off switch — **ESP1010 side-actuated slide switch** — [buy on AliExpress](https://www.aliexpress.com/item/1005007537444508.html)  
-  <a href="https://www.aliexpress.com/item/1005007537444508.html"><img src="Switch.png" alt="ESP1010 side-actuated slide switch" width="250" /></a>
+  <a href="https://www.aliexpress.com/item/1005007537444508.html"><img src="Gallery/Switch.png" alt="ESP1010 side-actuated slide switch" width="250" /></a>
 - Momentary shutter button — **6 × 6 × 6 mm SMD tact switch**, connected between GPIO13 and GND — [buy on AliExpress](https://www.aliexpress.com/item/1005007046105681.html)  
-  <a href="https://www.aliexpress.com/item/1005007046105681.html"><img src="Button.png" alt="6x6x6 mm SMD tact switch" width="250" /></a>
+  <a href="https://www.aliexpress.com/item/1005007046105681.html"><img src="Gallery/Button.png" alt="6x6x6 mm SMD tact switch" width="250" /></a>
 - microSD card
 
 ### 3D printable enclosure
