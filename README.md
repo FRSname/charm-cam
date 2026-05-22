@@ -1,7 +1,7 @@
 # Charm-Cam
 
 <p align="center">
-  <img src="micro2.gif" alt="Charm-Cam in action" width="600" />
+  <img src="Charm-Cam-reveal.gif" alt="Charm-Cam in action" width="600" />
 </p>
 
 [![Built with Claude](https://img.shields.io/badge/Built_with-Claude-D97757?logo=anthropic&logoColor=white)](https://claude.com)
@@ -35,10 +35,22 @@ Charm-Cam turns the ESP32-CAM into a small standalone camera with a built-in web
 
 Designed for:
 
-- AI-Thinker ESP32-CAM
-- OV2640 camera module
+- AI-Thinker ESP32-CAM with OV2640 camera module
+- Battery
+- USB C Charging board
 - microSD card
 - Momentary shutter button connected between GPIO13 and GND
+
+### 3D printable enclosure
+
+STL/3MF files for the Charm-Cam case are in [3D Files/](3D%20Files/):
+
+- `Charm-Cam-Front-v1.stl` / `Charm-Cam-Back-v1.stl` — main body halves
+- `Charm-Cam-Cage-v1.stl` — internal frame holding the ESP32-CAM and battery
+- `Charm-Cam-ESP-Cover-v1.stl` — module cover
+- `Charm-Cam-Lens-v1.stl` — lens bezel
+- `Charm-Cam-Parts-Holder-v1.stl` — print-bed jig for small parts
+- `Charm-Cam-v1-PrintFILE.3mf` — pre-arranged print plate (PrusaSlicer / Bambu Studio)
 
 ### Pin usage
 
