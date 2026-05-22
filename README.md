@@ -37,16 +37,16 @@ Frames captured with Charm-Cam, straight from the SD card with no post-processin
 
 <table>
   <tr>
-    <td><img src="gallery/ilford_7.jpg"  alt="Ilford roll — frame 7"  width="220" /></td>
-    <td><img src="gallery/ilford_8.jpg"  alt="Ilford roll — frame 8"  width="220" /></td>
-    <td><img src="gallery/ilford_12.jpg" alt="Ilford roll — frame 12" width="220" /></td>
-    <td><img src="gallery/ilford_19.jpg" alt="Ilford roll — frame 19" width="220" /></td>
+    <td><img src="Gallery/ilford_7.jpg"  alt="Ilford roll — frame 7"  width="220" /></td>
+    <td><img src="Gallery/ilford_8.jpg"  alt="Ilford roll — frame 8"  width="220" /></td>
+    <td><img src="Gallery/ilford_12.jpg" alt="Ilford roll — frame 12" width="220" /></td>
+    <td><img src="Gallery/ilford_19.jpg" alt="Ilford roll — frame 19" width="220" /></td>
   </tr>
   <tr>
-    <td><img src="gallery/ilford_24.jpg" alt="Ilford roll — frame 24" width="220" /></td>
-    <td><img src="gallery/ilford_25.jpg" alt="Ilford roll — frame 25" width="220" /></td>
-    <td><img src="gallery/ilford_36.jpg" alt="Ilford roll — frame 36" width="220" /></td>
-    <td><img src="gallery/kodak_16.jpg"  alt="Kodak roll — frame 16"  width="220" /></td>
+    <td><img src="Gallery/ilford_24.jpg" alt="Ilford roll — frame 24" width="220" /></td>
+    <td><img src="Gallery/ilford_25.jpg" alt="Ilford roll — frame 25" width="220" /></td>
+    <td><img src="Gallery/ilford_36.jpg" alt="Ilford roll — frame 36" width="220" /></td>
+    <td><img src="Gallery/kodak_16.jpg"  alt="Kodak roll — frame 16"  width="220" /></td>
   </tr>
 </table>
 
