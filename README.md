@@ -35,11 +35,14 @@ Charm-Cam turns the ESP32-CAM into a small standalone camera with a built-in web
 
 Designed for:
 
-- AI-Thinker ESP32-CAM with OV2640 camera module
+- AI-Thinker ESP32-CAM with OV2640 camera module — [buy on AliExpress](https://www.aliexpress.com/item/1005006299363624.html)  
+  <a href="https://www.aliexpress.com/item/1005006299363624.html"><img src="ESP.png" alt="AI-Thinker ESP32-CAM with OV2640" width="250" /></a>
 - Battery
-- USB C Charging board
-- microSD card
+- USB C Charging board — [buy on AliExpress](https://www.aliexpress.com/item/1005009974716402.html)  
+  <a href="https://www.aliexpress.com/item/1005009974716402.html"><img src="Batteryboard.png" alt="USB-C lithium battery charging module" width="250" /></a>
+- Flat on/off switch
 - Momentary shutter button connected between GPIO13 and GND
+- microSD card
 
 ### 3D printable enclosure
 
