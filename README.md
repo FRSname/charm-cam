@@ -98,12 +98,14 @@ The whole interface runs on the ESP32-CAM itself — no cloud, no companion app,
 
 ## Hardware
 
+**Total cost: roughly $20 USD** for all electronic parts shipped from AliExpress (excluding the printed enclosure, which is a few grams of filament).
+
 Designed for:
 
-- AI-Thinker ESP32-CAM with OV2640 camera module — [buy on AliExpress](https://www.aliexpress.com/item/1005006299363624.html)  
-  <a href="https://www.aliexpress.com/item/1005006299363624.html"><img src="Gallery/ESP.png" alt="AI-Thinker ESP32-CAM with OV2640" width="250" /></a>
-- Battery — 3.7 V Li-Po cell, optimal dimensions **39 × 26 × 4.5 mm** to fit the enclosure. The prototype uses a **502040 350 mAh** cell (40 × 20 × 5 mm) — [buy on AliExpress](https://www.aliexpress.com/item/1005011928866829.html)  
-  <a href="https://www.aliexpress.com/item/1005011928866829.html"><img src="Gallery/Battery.png" alt="502040 3.7V 350mAh Li-Po battery" width="250" /></a>
+- AI-Thinker ESP32-CAM with OV2640 camera module — [buy on AliExpress](https://www.aliexpress.com/item/1005006385419669.html)  
+  <a href="https://www.aliexpress.com/item/1005006385419669.html"><img src="Gallery/ESP.png" alt="AI-Thinker ESP32-CAM with OV2640" width="250" /></a>
+- Battery — 3.7 V Li-Po cell, optimal dimensions **39 × 26 × 4.5 mm** to fit the enclosure. The prototype uses a **502040 350 mAh** cell (40 × 20 × 5 mm) — [buy on AliExpress](https://www.aliexpress.com/item/32986051711.html)  
+  <a href="https://www.aliexpress.com/item/32986051711.html"><img src="Gallery/Battery.png" alt="502040 3.7V 350mAh Li-Po battery" width="250" /></a>
 - USB C Charging board — [buy on AliExpress](https://www.aliexpress.com/item/1005009974716402.html)  
   <a href="https://www.aliexpress.com/item/1005009974716402.html"><img src="Gallery/Batteryboard.png" alt="USB-C lithium battery charging module" width="250" /></a>
 - Flat on/off switch — **ESP1010 side-actuated slide switch** — [buy on AliExpress](https://www.aliexpress.com/item/1005007537444508.html)  
@@ -212,7 +214,7 @@ End-to-end instructions to go from zero to a working Charm-Cam.
 
 ### What you need before starting
 
-- All parts from the [Hardware](#hardware) list
+- All parts from the [Hardware](#hardware) list — **~$20 USD total** from AliExpress
 - A 3D printer (or a print service) for the enclosure
 - A computer with a USB port
 - A USB cable suitable for your flashing setup (see step 5)
