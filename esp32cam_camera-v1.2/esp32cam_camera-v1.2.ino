@@ -176,10 +176,21 @@ void loop() {
     }
 
     if (!digitalMode && pressDuration >= LONG_PRESS_MS) {
-      // ── LONG PRESS: develop current roll and reload same film ──
+      // ── LONG PRESS: develop current roll and reload same film,
+      //               OR load a random film if no roll is loaded ──
       Serial.println("Long press detected!");
       lastShutterTime = now;
-      if (!digitalMode && rollFilm != "" && !rollDeveloped && rollFrames > 0) {
+      if (rollFilm == "") {
+        // No roll loaded — load a random one
+        static const char* const FILM_IDS[] = {
+          "natural", "kodak", "ilford", "velvia",
+          "faded",   "cyano", "redscale", "xpro"
+        };
+        const int FILM_COUNT = sizeof(FILM_IDS) / sizeof(FILM_IDS[0]);
+        String pick = FILM_IDS[esp_random() % FILM_COUNT];
+        startRoll(pick);
+        Serial.printf("Long press: no roll loaded, started random %s roll\n", pick.c_str());
+      } else if (!rollDeveloped && rollFrames > 0) {
         String previousFilm = rollFilm;
         String rollDirName, developed, error;
         if (developCurrentRoll(rollDirName, developed, error)) {

@@ -7,7 +7,7 @@
 [![Built with Claude](https://img.shields.io/badge/Built_with-Claude-D97757?logo=anthropic&logoColor=white)](https://claude.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-> Built in collaboration with [Claude](https://claude.com), Anthropic's AI assistant — used throughout the project for code, design, and naming.
+> Built in collaboration with [Claude](https://claude.com)
 
 A Wi-Fi enabled point-and-shoot camera built for the AI-Thinker ESP32-CAM.
 
