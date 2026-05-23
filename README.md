@@ -1,6 +1,10 @@
 # Charm-Cam
 
 <p align="center">
+  <img src="Gallery/Charm-Cam-photo.png" alt="Charm-Cam held in hand" width="600" />
+</p>
+
+<p align="center">
   <img src="Charm-Cam-reveal.gif" alt="Charm-Cam in action" width="600" />
 </p>
 
@@ -97,17 +101,13 @@ The whole interface runs on the ESP32-CAM itself — no cloud, no companion app,
 3D-printed in orange and black, just barely bigger than a thumbnail, with the same form-factor DNA as the analog point-and-shoot cameras that inspired it — built to live on a keychain.
 
 <p align="center">
-  <img src="Gallery/Charm-Cam-photo.png" alt="Charm-Cam held in hand" width="600" />
+  <img src="Gallery/Charm-Cam-Key.png" alt="Charm-Cam hanging from a keychain, outdoors" width="400" />
 </p>
 
 <table>
   <tr>
     <td><img src="Gallery/Charm-Cam-analog.png"  alt="Charm-Cam alongside Zenit, Minolta, and Mamiya film cameras" width="380" /></td>
     <td><img src="Gallery/Charm-Cam-analog2.png" alt="Side view of the Charm-Cam next to the same vintage lineup" width="380" /></td>
-  </tr>
-  <tr>
-    <td><img src="Gallery/Charm-Cam-Key.png"     alt="Charm-Cam hanging from a keychain, outdoors"                 width="380" /></td>
-    <td><img src="Gallery/printed.jpg"           alt="Charm-Cam on a keychain, studio shot"                        width="380" /></td>
   </tr>
 </table>
 
