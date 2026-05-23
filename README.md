@@ -1,7 +1,7 @@
 # Charm-Cam
 
 <p align="center">
-  <img src="Gallery/Charm-Cam-photo.png" alt="Charm-Cam held in hand" width="600" />
+  <img src="Gallery/Charm-Cam-Main.png" alt="Charm-Cam held in hand" width="600" />
 </p>
 
 <p align="center">
