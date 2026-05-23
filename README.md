@@ -92,9 +92,24 @@ The whole interface runs on the ESP32-CAM itself — no cloud, no companion app,
   </tr>
 </table>
 
+## The finished Charm-Cam
+
+3D-printed in orange and black, just barely bigger than a thumbnail, with the same form-factor DNA as the analog point-and-shoot cameras that inspired it — built to live on a keychain.
+
 <p align="center">
-  <img src="Gallery/printed.jpg" alt="Charm-Cam printed and assembled" width="600" />
+  <img src="Gallery/Charm-Cam-photo.png" alt="Charm-Cam held in hand" width="600" />
 </p>
+
+<table>
+  <tr>
+    <td><img src="Gallery/Charm-Cam-analog.png"  alt="Charm-Cam alongside Zenit, Minolta, and Mamiya film cameras" width="380" /></td>
+    <td><img src="Gallery/Charm-Cam-analog2.png" alt="Side view of the Charm-Cam next to the same vintage lineup" width="380" /></td>
+  </tr>
+  <tr>
+    <td><img src="Gallery/Charm-Cam-Key.png"     alt="Charm-Cam hanging from a keychain, outdoors"                 width="380" /></td>
+    <td><img src="Gallery/printed.jpg"           alt="Charm-Cam on a keychain, studio shot"                        width="380" /></td>
+  </tr>
+</table>
 
 ## Hardware
 
@@ -116,7 +131,7 @@ Designed for:
 
 ### 3D printable enclosure
 
-STL/3MF files for the Charm-Cam case are in [3D Files/](3D%20Files/):
+All case files live in [3D Files/](3D%20Files/) — ready-to-print meshes plus the editable CAD source so you can modify the design:
 
 - `Charm-Cam-Front-v1.stl` / `Charm-Cam-Back-v1.stl` — main body halves
 - `Charm-Cam-Cage-v1.stl` — internal frame holding the ESP32-CAM and battery
@@ -124,6 +139,7 @@ STL/3MF files for the Charm-Cam case are in [3D Files/](3D%20Files/):
 - `Charm-Cam-Lens-v1.stl` — lens bezel
 - `Charm-Cam-Parts-Holder-v1.stl` — print-bed jig for small parts
 - `Charm-Cam-v1-PrintFILE.3mf` — pre-arranged print plate (PrusaSlicer / Bambu Studio)
+- `Charm-Cam-Fusion360.f3d` — **editable Fusion 360 source**, open this to tweak dimensions, change cut-outs, or remix the design
 
 <table>
   <tr>
