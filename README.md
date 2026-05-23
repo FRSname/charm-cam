@@ -130,6 +130,18 @@ STL/3MF files for the Charm-Cam case are in [3D Files/](3D%20Files/):
   </tr>
 </table>
 
+### Wiring
+
+<p align="center">
+  <img src="Gallery/wiring.png" alt="Charm-Cam wiring diagram" width="700" />
+</p>
+
+- **USB-C charging board** → ESP32-CAM `5V` / `GND` (power in, with the slide switch breaking the 5V line)
+- **Li-Po battery** → charging board `B+` / `B-`
+- **ESP1010 slide switch** → in-line on the 5V rail between charging board and ESP32-CAM (cuts power when off)
+- **6×6×6 tact button** → ESP32-CAM `GPIO13` ↔ `GND` (the firmware uses `INPUT_PULLUP`, no external resistor needed)
+- Onboard **flash LED** (GPIO4) and **status LED** (GPIO33) are already on the ESP32-CAM board
+
 ### Pin usage
 
 - **GPIO13**: shutter button
