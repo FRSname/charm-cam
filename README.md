@@ -206,42 +206,157 @@ From the web UI you can:
 - change hotspot name and password
 - open the OTA firmware update page
 
-## Build and upload
+## Build guide
 
-### Arduino IDE setup
+End-to-end instructions to go from zero to a working Charm-Cam.
 
-Use Arduino IDE with ESP32 board support installed.
+### What you need before starting
 
-Recommended board settings for OTA:
+- All parts from the [Hardware](#hardware) list
+- A 3D printer (or a print service) for the enclosure
+- A computer with a USB port
+- A USB cable suitable for your flashing setup (see step 5)
+- Basic soldering iron + thin wire (28–30 AWG works well)
+- Roughly **2–3 hours** of build time (excluding the print)
 
-- **Board**: AI Thinker ESP32-CAM
-- **Partition Scheme**: Minimal SPIFFS (1.9MB APP with OTA / 128KB SPIFFS)
+### 1. Print the enclosure
 
-That partition scheme is important if you want OTA updates to work.
+Open [`3D Files/Charm-Cam-v1-PrintFILE.3mf`](3D%20Files/Charm-Cam-v1-PrintFILE.3mf) in PrusaSlicer or Bambu Studio — the plate is already arranged. If you prefer to arrange manually, use the individual `.stl` files in [3D Files/](3D%20Files/).
 
-### First upload
+Recommended print settings:
 
-1. Connect the ESP32-CAM over USB/serial programmer
-2. Select the correct board and port
-3. Upload the sketch normally from Arduino IDE
-4. Open Serial Monitor at `115200` baud
-5. Wait for the AP name and IP address to appear
+- **Material**: PLA or PETG
+- **Layer height**: 0.16 mm (or 0.2 mm if you're in a hurry)
+- **Walls**: 3 perimeters
+- **Infill**: 20 % grid or gyroid
+- **Supports**: only where the slicer suggests them — the parts are designed to print mostly support-free
+- **Print time**: ~3–5 hours depending on slicer/printer
+
+Once printed, dry-fit the ESP32-CAM into the cage and check the lens bezel slides onto the camera module before soldering anything.
+
+### 2. Install the Arduino IDE
+
+Download Arduino IDE 2.x from [arduino.cc/en/software](https://www.arduino.cc/en/software) and install it. Launch it once to let it create its `Arduino` folder in your Documents.
+
+### 3. Install ESP32 board support
+
+1. Open **File → Preferences**.
+2. In **Additional boards manager URLs**, paste:
+   ```
+   https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+   ```
+   (Multiple URLs go on separate lines.)
+3. **Tools → Board → Boards Manager…** → search **`esp32`** → install **"esp32" by Espressif Systems** (latest stable, 2.x or newer).
+
+### 4. Download the project
+
+Either:
+
+- Click **Code → Download ZIP** on this GitHub page and unzip it, or
+- Clone with git:
+  ```
+  git clone https://github.com/FRSname/charm-cam.git
+  ```
+
+### 5. Open the project
+
+In Arduino IDE: **File → Open…** and pick [`esp32cam_camera-v1.2/esp32cam_camera-v1.2.ino`](esp32cam_camera-v1.2/esp32cam_camera-v1.2.ino). The other `.ino`, `.h`, and `config.h` files in the same folder will open as tabs alongside it.
+
+### 6. Configure the board
+
+In the **Tools** menu, set:
+
+- **Board** → *ESP32 Arduino → AI Thinker ESP32-CAM*
+- **Partition Scheme** → *Minimal SPIFFS (1.9MB APP with OTA / 190KB SPIFFS)*  
+  *(Required for OTA — the default partition has no OTA slot.)*
+- **CPU Frequency** → *240MHz*
+- **Flash Mode** → *QIO*
+- **Flash Frequency** → *80MHz*
+- **Upload Speed** → *115200* (raise later if reliable)
+
+### 7. Connect the ESP32-CAM for flashing
+
+The bare AI-Thinker ESP32-CAM has **no USB** — you need one of:
+
+- **ESP32-CAM-MB baseboard** (recommended) — plugs onto the ESP32-CAM pins, exposes a USB-C/micro-USB port, and handles the auto-reset-into-flashing-mode dance for you. No jumpers needed.
+- **USB-to-TTL adapter** (CP2102, CH340, FT232) — wire it manually:
+  - Adapter `5V` → ESP32-CAM `5V`
+  - Adapter `GND` → ESP32-CAM `GND` *and* ESP32-CAM `GPIO0` (jumper GPIO0 to GND to enter flash mode)
+  - Adapter `TX` → ESP32-CAM `U0R`
+  - Adapter `RX` → ESP32-CAM `U0T`
+  - Press the on-board **RST** button just before upload starts. Remove the GPIO0 jumper after flashing.
+
+Plug it into your computer and confirm the COM port appears in **Tools → Port**.
+
+### 8. Flash the firmware
+
+1. Select the COM port assigned to your adapter / baseboard.
+2. Click **Upload** (the right arrow icon).
+3. Wait through compile + upload. The first build takes a couple of minutes; subsequent ones are faster.
+4. Open **Tools → Serial Monitor** at **115200 baud**. You should see:
+   ```
+   Charm-Cam starting...
+   >> STEP 1: WiFi AP...
+   Hotspot: Charm-Cam — connect and go to http://192.168.4.1
+   ```
+
+Test the firmware *before* you solder anything into the case — easier to fix issues now.
+
+### 9. Test the web UI
+
+1. On your phone or laptop, connect to the Wi-Fi network **`Charm-Cam`** (password `camera123`).
+2. Open **http://192.168.4.1** in a browser.
+3. Load a film, take a shot. Confirm it appears in the gallery.
+4. If anything is broken, fix it before assembly. Re-flash as needed.
+
+### 10. Wire the components
+
+With the ESP32-CAM out of the baseboard, follow the diagram in [Wiring](#wiring). In order:
+
+1. Solder the **6×6×6 tact button** between ESP32-CAM `GPIO13` and `GND`. Keep wires short and route them along the cage.
+2. Solder a wire from the USB-C charging board **OUT+** to one terminal of the **ESP1010 slide switch**, then from the other switch terminal to ESP32-CAM **5V**. The switch breaks the 5V rail.
+3. Solder USB-C charging board **OUT−** to ESP32-CAM **GND**.
+4. Solder the **Li-Po battery** wires to the charging board **B+** (red) and **B−** (black). Double-check polarity — reversed Li-Po can vent or catch fire.
+5. Insert a **microSD card** into the ESP32-CAM slot.
+
+### 11. Assemble
+
+1. Seat the ESP32-CAM into the printed **Cage** part. The lens points through the front opening.
+2. Place the **Lens bezel** over the OV2640 module.
+3. Tuck the battery into its slot in the Cage.
+4. Position the USB-C charging board, switch, and shutter button so they line up with their cutouts in the **Front/Back** halves.
+5. Sandwich the front and back together. The press-fit should hold them; add a dab of glue at the seam if needed.
+
+### 12. First power-on
+
+1. Charge the battery via the USB-C port until the charging LED indicates full.
+2. Flip the slide switch to **ON**.
+3. Watch for the flash LED to blink the boot sequence (1× → 2× → 3× → 4× → 5× → 6×, then 3 fast blinks = ready).
+4. Connect to the `Charm-Cam` Wi-Fi, open the UI, take your first shot.
+
+Congratulations — you've built a Charm-Cam.
 
 ## OTA updates
 
-OTA is built into the firmware and available from the settings area.
+After the first wired flash, you can update the firmware wirelessly via the **Firmware Update** page in Settings (the OTA path).
 
-Important notes:
+### Producing the OTA binary
 
-- Use an OTA-capable partition scheme
-- Upload only the main compiled firmware binary: the `.ino.bin` file
-- Do **not** upload the bootloader, partition, or merged files through the OTA page
+1. In Arduino IDE: **Sketch → Export Compiled Binary**.
+2. Find the binary in the sketch folder — use the file named `esp32cam_camera-v1.2.ino.bin` (the **plain** one, not `merged`, `bootloader`, or `partitions`).
 
-If OTA fails, the most common causes are:
+### Uploading via OTA
 
-- wrong partition scheme
-- firmware binary too large for the OTA app slot
-- uploading the wrong exported file
+1. Connect to the `Charm-Cam` Wi-Fi.
+2. Open Settings → **Firmware Update**.
+3. Choose the `.ino.bin` file and upload.
+4. The device reboots into the new firmware automatically.
+
+### If OTA fails
+
+- Wrong partition scheme — re-flash via USB with **Minimal SPIFFS** selected.
+- Binary too large for the OTA app slot — strip unused features or use a larger-app partition.
+- You uploaded the wrong file — use `*.ino.bin`, not `*.merged.bin` / `*.bootloader.bin` / `*.partitions.bin`.
 
 ## Power notes
 
